@@ -1,0 +1,7 @@
+# Ensure .bat files always use CRLF (required by Windows cmd.exe)
+*.bat text eol=crlf
+
+# Markdown and text files use LF
+*.md  text eol=lf
+*.txt text eol=lf
+*     text=auto
