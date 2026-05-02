@@ -50,8 +50,8 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI" ^
 sc query "CoreAIPlatform" >nul 2>&1
 if %errorLevel% == 0 (
     sc stop "CoreAIPlatform" >nul 2>&1
-    sc config "CoreAIPlatform" start=disabled >nul 2>&1
-    echo  %GREEN%  [+] CoreAIPlatform service disabled.%RESET%
+    sc config "CoreAIPlatform" start=demand >nul 2>&1
+    echo  %GREEN%  [+] CoreAIPlatform service set to manual.%RESET%
 )
 
 :: Remove Recall from startup (if registered as a scheduled task)

@@ -35,17 +35,24 @@ if /i not "%CONFIRM%"=="Y" (
 echo.
 
 :: ============================================================
-echo  %CYAN%  [02] Restore Services to Automatic%RESET%
+echo  %CYAN%  [02] Restore Services to Default%RESET%
 :: ============================================================
-for %%S in (SysMain WSearch DiagTrack dmwappushservice PcaSvc DPS ^
-            XblAuthManager XblGameSave XboxNetApiSvc XboxGipSvc ^
-            RetailDemo MapsBroker WMPNetworkSvc Fax ^
-            TabletInputService icssvc RemoteRegistry TrkWks) do (
+:: Services that default to Automatic / Automatic (Delayed Start)
+for %%S in (SysMain WSearch DiagTrack dmwappushservice DPS MapsBroker TrkWks) do (
     sc query "%%S" >nul 2>&1
     if !errorLevel! == 0 (
         sc config "%%S" start=auto >nul 2>&1
         sc start "%%S" >nul 2>&1
         echo  %GREEN%    [+]%RESET% %%S — Automatic
+    )
+)
+
+:: Services that default to Manual
+for %%S in (PcaSvc XblAuthManager XblGameSave XboxNetApiSvc XboxGipSvc RetailDemo WMPNetworkSvc Fax TabletInputService icssvc RemoteRegistry) do (
+    sc query "%%S" >nul 2>&1
+    if !errorLevel! == 0 (
+        sc config "%%S" start=demand >nul 2>&1
+        echo  %GREEN%    [+]%RESET% %%S — Manual
     )
 )
 echo.

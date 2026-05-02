@@ -32,9 +32,9 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" ^
 echo  %GREEN%  [+]%RESET% Transparency effects — disabled
 
 :: ── Animation switches in UserPreferencesMask ────────────────
-:: These control the fine-grained animation flags
-reg add "HKCU\Control Panel\Desktop" ^
-    /v "UserPreferencesMask" /t REG_BINARY /d 9012078010000000 /f >nul
+:: Read existing value, disable specific animation bits, write back
+powershell -NonInteractive -Command ^
+    "$p = 'HKCU:\Control Panel\Desktop'; $n = 'UserPreferencesMask'; $m = (Get-ItemProperty $p -Name $n -ErrorAction SilentlyContinue).$n; if ($m) { $m[0] = $m[0] -band 0x5F; Set-ItemProperty $p -Name $n -Value $m -Type Binary }"
 echo  %GREEN%  [+]%RESET% UserPreferencesMask updated (minimal animations)
 
 :: ── Individual animation settings ────────────────────────────

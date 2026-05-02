@@ -51,9 +51,17 @@ call :remove_app "MSTeams"                      "Teams (new, consumer)"
 :: ── Xbox (comment these out if you use Xbox) ─────────────────
 call :remove_app "Microsoft.XboxApp"            "Xbox (old)"
 call :remove_app "Microsoft.GamingApp"          "Xbox (new)"
-call :remove_app "Microsoft.XboxGamingOverlay"  "Xbox Game Bar"
-call :remove_app "Microsoft.XboxIdentityProvider" "Xbox Identity Provider"
-call :remove_app "Microsoft.XboxSpeechToTextOverlay" "Xbox Speech Overlay"
+
+echo.
+set /p "XBOX_ANS=  Remove Xbox Game Bar (Win+G recording)? (Y/N): "
+if /i "%XBOX_ANS%"=="Y" (
+    call :remove_app "Microsoft.XboxGamingOverlay"  "Xbox Game Bar"
+    call :remove_app "Microsoft.XboxIdentityProvider" "Xbox Identity Provider"
+    call :remove_app "Microsoft.XboxSpeechToTextOverlay" "Xbox Speech Overlay"
+) else (
+    echo  %YELLOW%  [-] Skipped Xbox Game Bar%RESET%
+)
+echo.
 
 :: ── Other pre-installed non-essentials ───────────────────────
 call :remove_app "Microsoft.MixedReality.Portal"    "Mixed Reality Portal"
