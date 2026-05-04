@@ -128,3 +128,8 @@ New scripts must follow the `_lib/` conventions (admin check, logger, colors) an
 ## 📄 License
 
 MIT — see [LICENSE](LICENSE).
+
+## Author
+
+**Alyson** · [github.com/Alyson256](https://github.com/Alyson256)
+
